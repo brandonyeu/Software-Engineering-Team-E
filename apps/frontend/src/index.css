@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: #f1f1f1;
+        --foreground: #0c0a09;
+
+        --kiosk: #012d5a;
+
+        --card: #e5e7eb;
+        --card-foreground: #0c0a09;
+
+        --popover: #ffffff;
+        --popover-foreground: #0c0a09;
+
+        --primary: #012d5a;
+        --primary-foreground: #fafaf9;
+
+        --secondary: #ebedef;
+        --secondary-foreground: #fafaf9;
+
+        --muted: #f5f5f4;
+        --muted-foreground: #78716c;
+
+        --accent: #f6bd38;
+        --accent-foreground: #fafaf9;
+
+        --destructive: #ef4444;
+        --destructive-hover: #ef0000;
+        --destructive-foreground: #fafaf9;
+
+        --border: #e7e5e4;
+        --input: #e7e5e4;
+        --ring: #0c0a09;
+
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: #0A141F;
+        --foreground: #f1f1f1;
+
+        --button: #f6bd38;
+        --button-hover: #FBDF9D;
+        --button-secondary: ;
+        --button-secondary-hover: ;
+
+        --kiosk: #012d5a;
+
+        --card: #14283E;
+        --card-foreground: #fafaf9;
+
+        --popover: #003365;
+        --popover-foreground: #fafaf9;
+
+        --primary: #cae7ff;
+        --primary-element: #0F1E2E;
+        --primary-foreground: #1c1917;
+
+        --secondary: #0F1E2E;
+        --secondary-element: #14283E;
+        --secondary-foreground: #fafaf9;
+
+        --tertiary: #ffffff;
+        --tertiary-element: #283545;
+
+        --muted: #292524;
+        --muted-foreground: #d6d6d6;
+
+        --accent: #f6bd38;
+        --accent-foreground: #fafaf9;
+
+        --destructive: #ef4444;
+        --destructive-hover: #ef0000;
+        --destructive-foreground: #fafaf9;
+
+        --border: #14283E;
+        --input: #14283E;
+        --ring: #0F1E2E;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}

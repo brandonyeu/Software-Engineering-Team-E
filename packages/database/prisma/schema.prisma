@@ -1,0 +1,154 @@
+generator client {
+  provider   = "prisma-client-js"
+  output     = "../.prisma/client"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model node {
+  nodeID    String    @id
+  xcoord    Int
+  ycoord    Int
+  floor     String
+  building  String
+  nodeType  String
+  longName  String
+  shortName String
+  edges     String
+  blocked   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+}
+
+model edge {
+  edgeID      String    @id
+  startNodeID String
+  endNodeID   String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+}
+
+model path {
+  uniqueID    Int      @id @default(autoincrement())
+  startNodeID String
+  endNodeID   String
+  createdAt   DateTime @default(now())
+}
+
+model employee {
+  ID           Int      @id @default(autoincrement())
+  name         String   @unique
+  nickname     String
+  displayName  String?
+  phone_number String?  @unique
+  createdAt    DateTime @default(now())
+  admin        Boolean  @default(false)
+}
+
+enum ServiceType {
+  FLOWER
+  GIFT
+  INTERPRETER
+  SECURITY
+  MEDICINE
+  SANITATION
+  ROOMSCHEDULE
+  MEDICALDEVICE
+}
+
+model service {
+  // normal service inputs
+  location     String
+  status       String
+  priority     String
+  employeeName String
+  // track when it was created or changed
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime?
+
+  // Iteration 5 change
+  createdBy     String         @default("")
+  // potential types
+  serviceType   ServiceType
+  flower        flower?
+  gift          gift?
+  interpreter   interpreter?
+  security      security?
+  medicine      medicine?
+  sanitation    sanitation?
+  roomschedule  roomschedule?
+  medicaldevice medicaldevice?
+
+  // service ID
+  serviceId Int @id @default(autoincrement())
+}
+
+model flower {
+  servId      Int     @id
+  patientName String
+  senderName  String
+  cardMessage String
+  flowerType  String
+  service     service @relation(fields: [servId], references: [serviceId])
+}
+
+model gift {
+  servId        Int     @id
+  recipientName String
+  message       String
+  giftSize      String
+  wrapping      String
+  service       service @relation(fields: [servId], references: [serviceId])
+}
+
+model interpreter {
+  servId         Int     @id
+  clientName     String
+  language       String
+  duration       String
+  additionalInfo String
+  service        service @relation(fields: [servId], references: [serviceId])
+}
+
+model security {
+  servId           Int     @id
+  requestType      String
+  alertAuthorities Boolean
+  service          service @relation(fields: [servId], references: [serviceId])
+}
+
+model medicine {
+  servId           Int     @id
+  patientName      String
+  patientCondition String
+  drugName         String
+  drugQuantity     String
+  service          service @relation(fields: [servId], references: [serviceId])
+}
+
+model sanitation {
+  servId         Int     @id
+  patientName    String
+  serviceType    String
+  additionalInfo String
+  service        service @relation(fields: [servId], references: [serviceId])
+}
+
+model roomschedule {
+  servId      Int     @id
+  serviceType String
+  startTime   String
+  endTime     String
+  service     service @relation(fields: [servId], references: [serviceId])
+}
+
+model medicaldevice {
+  servId         Int     @id
+  selectedDevice String
+  withBalloons   Boolean
+  service        service @relation(fields: [servId], references: [serviceId])
+}

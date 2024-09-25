@@ -1,0 +1,10 @@
+!.*
+**/build
+**/.yarn
+**/.idea
+**/coverage
+**/node_modules
+**/.turbo
+**/.prisma
+**/output.css
+**/components/ui
